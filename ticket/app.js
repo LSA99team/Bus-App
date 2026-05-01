@@ -35,7 +35,7 @@ if (weekBtn) {
 }
 
 if (monthBtn) {
-  weekBtn.addEventListener('click', () => {
+  monthBtn.addEventListener('click', () => {
     window.location.href = 'payment.html?ticket=Monatskarte';
   });
 }
