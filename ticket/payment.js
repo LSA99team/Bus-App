@@ -47,7 +47,7 @@ function showPaymentForm(method, amount) {
         <h3>Bankkonto</h3>
         <input type="text" placeholder="name" />
         <input type="text" placeholder="Kontonummer" maxlength="27" />
-        <button onclick="processPayment('EC-Karte', '${amount}')">Bezahlen €${amount}</button>
+        <button onclick="processPayment('Bankkonto', '${amount}')">Bezahlen €${amount}</button>
       `;
       break;
     case 'cash':
