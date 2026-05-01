@@ -45,7 +45,8 @@ function showPaymentForm(method, amount) {
     case 'ec':
       html = `
         <h3>EC-Karte</h3>
-        <p>Bitte EC-Karte in Leser einführen...</p>
+        <input type="text" placeholder="Kontonummer" maxlength="22" />
+        <input type="text" placeholder="name" maxlength="16" />
         <button onclick="processPayment('EC-Karte', '${amount}')">Zahlung bestätigen</button>
       `;
       break;
