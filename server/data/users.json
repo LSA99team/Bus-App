@@ -1,14 +1,14 @@
 [
   {
-    "id": "user-1",
-    "username": "fahrer",
-    "password": "passwort123",
+    "id": "admin",
+    "username": "admin",
+    "password": "admin",
     "role": "admin"
   },
   {
-    "id": "user-2",
+    "id": "kunde",
     "username": "kunde",
-    "password": "ticket",
+    "password": "1234",
     "role": "user"
   }
 ]
