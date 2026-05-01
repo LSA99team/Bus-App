@@ -61,7 +61,7 @@ function showPaymentForm(method, amount) {
     case 'mobile':
       html = `
         <h3>Mobile Zahlung</h3>
-        <input type="email" placeholder="E-Mail oder Telefon" />
+        <input type="number" placeholder="Telefonnummer" />
         <button onclick="processPayment('Mobile Zahlung', '${amount}')">Zahlung durchführen</button>
       `;
       break;
