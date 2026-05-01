@@ -10,7 +10,7 @@ function showMessage(type, price) {
   const messages = {
     single: `Einzelfahrt für €${price} gebucht. Gültig für eine Fahrt.`,
     day: `Tageskarte für €${price} gebucht. Gültig für heute.`,
-    week: `Wochenkarte für €${price} gebucht. Gültig für 7 Tage.`
+    week: `Wochenkarte für €${price} gebucht. Gültig für 7 Tage.`,
     month: `Monatskarte für €${price} gebucht. Gültig für 28 Tage.`
   };
   messageElement.textContent = messages[type];
