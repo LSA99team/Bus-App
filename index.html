@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Schwamm Stadt Fährt - Startseite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f2f2f2;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Schwamm Stadt Fährt - Startseite</h1>
+
+<div class="container">
+    <button onclick="btn1()">Bank</button>
+    <button onclick="btn2()">Bordcomputer</button>
+    <button onclick="btn3()">Ticket</button>
+    <button onclick="btn4()">Anzeige</button>
+</div>
+
+<script>
+    function btn1() {
+        window.location.href = "bank/index.html";
+    }
+
+    function btn2() {
+        window.location.href = "bordcomputer/index.html";
+    }
+
+    function btn3() {
+        window.location.href = "ticket/index.html";
+    }
+
+    function btn4() {
+        window.location.href = "anzeige/index.html";
+    }
+
+</script>
+
+</body>
+</html>

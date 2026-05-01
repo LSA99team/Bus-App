@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bordcomputer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🖥️ Bordcomputer</h1>
+    
+    <div class="menu-grid">
+      <button class="menu-btn system-btn">
+        <div class="icon">⚙️</div>
+        <h2>System</h2>
+        <p>Datum & Einstellungen</p>
+      </button>
+      
+      <button class="menu-btn driver-btn">
+        <div class="icon">👨‍✈️</div>
+        <h2>Fahrer</h2>
+        <p>Login & Verwaltung</p>
+      </button>
+      
+      <button class="menu-btn trip-btn">
+        <div class="icon">🚌</div>
+        <h2>Fahrt</h2>
+        <p>Fahrtinformationen</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- System Modal -->
+  <div id="systemModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>System</h2>
+      <div class="system-info">
+        <p>Aktuelles Datum: <strong id="currentDate">-</strong></p>
+        <p>Systemzeit: <strong id="currentTime">-</strong></p>
+      </div>
+      <div class="settings">
+        <h3>Einstellungen</h3>
+        <button class="settings-btn">Sprache</button>
+        <button class="settings-btn">Display</button>
+        <button class="settings-btn">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Driver Login Modal -->
+  <div id="driverModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Fahrer Login</h2>
+      <form id="driverLoginForm">
+        <div class="form-group">
+          <label for="driverUsername">Benutzername:</label>
+          <input type="text" id="driverUsername" required />
+        </div>
+        <div class="form-group">
+          <label for="driverPassword">Passwort:</label>
+          <input type="password" id="driverPassword" required />
+        </div>
+        <button type="submit" class="submit-btn">Anmelden</button>
+      </form>
+      <div id="driverMessage"></div>
+    </div>
+  </div>
+
+  <!-- Trip Selection Modal -->
+  <div id="tripModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Fahrt auswählen</h2>
+      
+      <div class="trip-selection">
+        <div class="selection-group">
+          <label for="routeSelect">Linie:</label>
+          <select id="routeSelect">
+            <option value="">-- Wählen --</option>
+          </select>
+        </div>
+        
+        <div class="selection-group">
+          <label for="variantSelect">Route Variante:</label>
+          <select id="variantSelect">
+            <option value="">-- Wählen --</option>
+          </select>
+        </div>
+        
+        <div class="selection-group">
+          <label for="stopSelect">Startpunkt:</label>
+          <select id="stopSelect">
+            <option value="">-- Wählen --</option>
+          </select>
+        </div>
+        
+        <button id="startTripBtn" class="submit-btn">Fahrt starten</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trip Display Modal -->
+  <div id="tripDisplayModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>🚌 Fahrt in Betrieb</h2>
+      
+      <div class="trip-info">
+        <p>Linie: <strong id="tripLine">-</strong></p>
+        <p>Fahrer: <strong id="tripDriver">-</strong></p>
+        <p>Aktueller Halt: <strong id="currentStop">-</strong></p>
+      </div>
+      
+      <div class="next-stops">
+        <h3>Nächste Haltestellen</h3>
+        <div id="stopsDisplay" class="stops-list"></div>
+      </div>
+      
+      <div class="trip-actions">
+        <button id="nextStopBtn" class="action-btn">Nächste Haltestelle</button>
+        <button id="ticketSalesBtn" class="action-btn">Ticketverkauf</button>
+        <button id="ticketScanBtn" class="action-btn">Ticket Scan</button>
+        <button id="endTripBtn" class="action-btn danger">Fahrt beenden</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket Sales Modal -->
+  <div id="ticketSalesModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>🎫 Ticketverkauf</h2>
+      <button id="openTicketBtn" class="submit-btn">Ticketsystem öffnen</button>
+      <p id="ticketMessage"></p>
+    </div>
+  </div>
+
+  <!-- Ticket Scan Modal -->
+  <div id="ticketScanModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>📱 Ticket Scan</h2>
+      <div class="scan-input">
+        <label for="scanInput">Ticket-Code scannen:</label>
+        <input type="text" id="scanInput" placeholder="QR-Code oder Ticketnummer" />
+      </div>
+      <div id="scanResult"></div>
+    </div>
+  </div>
+
+  <script src="database.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

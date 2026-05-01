@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bezahlung</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Bezahlung</h1>
+    
+    <div class="payment-section">
+      <div class="ticket-info">
+        <p>Tickettyp: <strong id="ticketType">-</strong></p>
+        <p>Betrag: <strong id="amount">-</strong></p>
+      </div>
+
+      <div class="payment-methods">
+        <h2>Zahlungsmethode wählen:</h2>
+        <button class="payment-btn" data-method="card">💳 Kreditkarte</button>
+        <button class="payment-btn" data-method="ec">🏦 EC-Karte</button>
+        <button class="payment-btn" data-method="cash">💵 Bargeld</button>
+        <button class="payment-btn" data-method="mobile">📱 Mobil</button>
+      </div>
+
+      <div id="paymentForm" class="payment-form" style="display: none;">
+        <div id="formContent"></div>
+      </div>
+
+      <div id="message"></div>
+    </div>
+
+    <button id="cancelBtn" class="cancel-btn">Abbrechen</button>
+  </div>
+  <script src="payment.js"></script>
+</body>
+</html>

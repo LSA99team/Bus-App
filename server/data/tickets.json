@@ -1,0 +1,9 @@
+[
+  {
+    "id": "ticket-1",
+    "tripId": "trip-1",
+    "userId": "user-2",
+    "price": 2.50,
+    "validFrom": "2026-05-01T08:00:00Z"
+  }
+]

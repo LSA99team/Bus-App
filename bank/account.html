@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bankkonto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="user-info">
+      <p>Angemeldet als: <strong id="displayUsername">-</strong></p>
+    </div>
+    
+    <h1>💰 Bankkonto</h1>
+    
+    <div class="account-details">
+      <div class="detail-card">
+        <p>Kontonummer: <strong id="accountNumber">-</strong></p>
+      </div>
+      <div class="detail-card">
+        <p>Kontoinhaber: <strong id="accountHolder">-</strong></p>
+      </div>
+      <div class="detail-card">
+        <p>Kontostand: <strong id="balance">-</strong></p>
+      </div>
+      <div class="detail-card">
+        <p>Kartennummer: <strong id="cardNumber">-</strong></p>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn">Abmelden</button>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
