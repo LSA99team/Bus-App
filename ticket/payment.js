@@ -46,6 +46,7 @@ function showPaymentForm(method, amount) {
       html = `
         <h3>EC-Karte</h3>
         <input type="text" placeholder="Kontonummer" maxlength="27" />
+        <input type="text" placeholder="name" />
         <button onclick="processPayment('EC-Karte', '${amount}')">Bezahlen €${amount}</button>
       `;
       break;
@@ -60,7 +61,7 @@ function showPaymentForm(method, amount) {
     case 'mobile':
       html = `
         <h3>Mobile Zahlung</h3>
-        <input type="text" placeholder="Telefonnummer" />
+        <input type="number" placeholder="Telefonnummer" />
         <button onclick="processPayment('Mobile Zahlung', '${amount}')">Zahlung durchführen</button>
       `;
       break;
