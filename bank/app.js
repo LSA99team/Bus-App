@@ -2,7 +2,7 @@
 const users = [
   { username: 'Sibo99', password: '9901', name: 'Soeren Becker', balance: 0.00, accountNumber: 'SML11 0099 1125 1000 0222 99', cardNumber: '5485 2563 5587 2095' },
   { username: 'SMSF', password: 'OPNV', name: 'Schwamm Stadt Faehrt', balance: 25000.00, accountNumber: 'SML11 4578 4521 4579 1025 03', cardNumber: 'nicht vorhanden' }
-  { username: 'gastuser1', password: '1234', name: 'gast', balance: 0.00, accountNumber: 'gust', cardNumber: 'nicht vorhanden' }
+  { username: 'gast', password: '1234', name: 'gast', balance: 0.00, accountNumber: 'GT01 0000 0000 0000 0000 00', cardNumber: 'nicht vorhanden' }
 ];
 
 // Detect which page we're on
