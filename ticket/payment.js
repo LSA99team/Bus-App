@@ -1,7 +1,7 @@
 const ticketData = {
-  'Einzelfahrt': '2.50',
-  'Tageskarte': '7.00',
-  'Wochenkarte': '25.00',
+  'Einzelfahrt': '1.25',
+  'Tageskarte': '5.55',
+  'Wochenkarte': '22.25',
   'Monatskarte': '55.55',
 };
 
@@ -44,7 +44,7 @@ function showPaymentForm(method, amount) {
       break;
     case 'ec':
       html = `
-        <h3>EC-Karte</h3>
+        <h3>Bankkonto</h3>
         <input type="text" placeholder="name" />
         <input type="text" placeholder="Kontonummer" maxlength="27" />
         <button onclick="processPayment('EC-Karte', '${amount}')">Bezahlen €${amount}</button>
