@@ -240,15 +240,39 @@ function setupTicketScan() {
   const scanResult = document.getElementById('scanResult');
   
   if (scanInput) {
-    scanInput.addEventListener('keypress', (e) => {
+    scanInput.addEventListener('keypress', async (e) => {
       if (e.key === 'Enter') {
-        const code = scanInput.value;
-        if (code.length > 5) {
-          scanResult.innerHTML = '<div style="color: #059669; padding: 12px; background: #dcfce7; border-radius: 8px;">✓ Ticket gültig</div>';
-        } else {
-          scanResult.innerHTML = '<div style="color: #dc2626; padding: 12px; background: #fee2e2; border-radius: 8px;">✗ Ticket ungültig</div>';
-        }
+        const stampId = scanInput.value.trim();
         scanInput.value = '';
+        
+        try {
+          const response = await fetch(`http://localhost:3000/api/tickets/scan/${stampId}`);
+          const data = await response.json();
+          
+          if (response.ok) {
+            // Ticket gültig und gescannt
+            scanResult.innerHTML = `
+              <div style="color: #059669; padding: 12px; background: #dcfce7; border-radius: 8px;">
+                <strong>✓ Ticket gescannt</strong><br>
+                Art: ${data.art}<br>
+                Preis: €${data.price.toFixed(2)}
+              </div>
+            `;
+          } else {
+            // Fehler
+            scanResult.innerHTML = `
+              <div style="color: #dc2626; padding: 12px; background: #fee2e2; border-radius: 8px;">
+                ✗ ${data.error}
+              </div>
+            `;
+          }
+        } catch (error) {
+          scanResult.innerHTML = `
+            <div style="color: #dc2626; padding: 12px; background: #fee2e2; border-radius: 8px;">
+              ✗ Verbindungsfehler zum Server
+            </div>
+          `;
+        }
       }
     });
   }

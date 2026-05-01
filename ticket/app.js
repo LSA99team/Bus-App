@@ -1,4 +1,5 @@
 const singleBtn = document.getElementById('singleBtn');
+const singlekindBtn = document.getElementById('singlekindBtn');
 const dayBtn = document.getElementById('dayBtn');
 const weekBtn = document.getElementById('weekBtn');
 const monthBtn = document.getElementById('monthBtn');
@@ -9,6 +10,7 @@ const messageElement = document.getElementById('message');
 function showMessage(type, price) {
   const messages = {
     single: `Einzelfahrt für €${price} gebucht. Gültig für eine Fahrt.`,
+    singlekind: `Einzelfahrt (Kind) für €${price} gebucht. Gültig für eine Fahrt.`,
     day: `Tageskarte für €${price} gebucht. Gültig für heute.`,
     week: `Wochenkarte für €${price} gebucht. Gültig für 7 Tage.`,
     month: `Monatskarte für €${price} gebucht. Gültig für 28 Tage.`
@@ -19,6 +21,12 @@ function showMessage(type, price) {
 if (singleBtn) {
   singleBtn.addEventListener('click', () => {
     window.location.href = 'payment.html?ticket=Einzelfahrt';
+  });
+}
+
+if (singlekindBtn) {
+  singlekindBtn.addEventListener('click', () => {
+    window.location.href = 'payment.html?ticket=Einzelfahrt (Kind)';
   });
 }
 

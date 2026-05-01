@@ -1,10 +1,22 @@
 [
   {
     "id": "T-1",
-    "tripId": "trip-1",
+    "stampId": "STAMP-001",
     "userId": "user-2",
+    "art": "Einzelfahrt",
     "price": 2.50,
     "validFrom": "01-05-2026T08:00:00Z",
-    "validTo": "01-05-2026T08:59:59Z"
+    "validTo": "01-05-2026T23:59:59Z",
+    "scanned": false
+  },
+  {
+    "id": "T-2",
+    "stampId": "STAMP-002",
+    "userId": "user-3",
+    "art": "Kinderticket",
+    "price": 0.75,
+    "validFrom": "02-05-2026T08:00:00Z",
+    "validTo": "02-05-2026T23:59:59Z",
+    "scanned": false
   }
 ]

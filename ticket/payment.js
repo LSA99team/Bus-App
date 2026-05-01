@@ -46,7 +46,7 @@ function showPaymentForm(method, amount) {
       html = `
         <h3>Bankkonto</h3>
         <input type="text" placeholder="name" />
-        <input type="text" placeholder="Kontonummer" maxlength="28" />
+        <input type="text" placeholder="Kontonummer" maxlength="27" />
         <button onclick="processPayment('Bankkonto', '${amount}')">Bezahlen €${amount}</button>
       `;
       break;
