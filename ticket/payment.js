@@ -2,7 +2,7 @@ const ticketData = {
   'Einzelfahrt': '2.50',
   'Tageskarte': '7.00',
   'Wochenkarte': '25.00',
-  'Monatskarte': '90.00'
+  'Monatskarte': '55.55'
 };
 
 const ticketTypeElement = document.getElementById('ticketType');
