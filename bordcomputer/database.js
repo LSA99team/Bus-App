@@ -1,37 +1,40 @@
 // Bus System Datenbank
 const busSystemData = {
   drivers: [
-    { id: 1, name: 'Admin', username: 'admin', password: 'admin', active: true },
-    { id: 2, name: 'Anna Schmidt', username: 'driver2', password: 'pass2', active: true },
-    { id: 3, name: 'Peter Weber', username: 'driver3', password: 'pass3', active: true }
+    { id: 0, name: 'Admin', username: 'admin', password: 'admin', active: true },
+    { id: 1, name: 'Sören Becker', username: 'BF0001', password: '9901', active: true }
   ],
   
   routes: [
-    { id: 1, number: '5', name: 'Stadtzentrum - Flughafen', active: true },
-    { id: 2, number: '42', name: 'Hauptbahnhof - Industriezone', active: true },
-    { id: 3, number: '7', name: 'Marktplatz - Krankenhaus', active: true }
+    { id: 1, number: 'T', name: 'Testroute', active: true },
   ],
   
   variants: [
-    { id: 1, routeId: 1, name: 'Standard Route', stops: ['Hauptbahnhof', 'Marktplatz', 'Rathaus', 'Stadion', 'Flughafen'] },
-    { id: 2, routeId: 1, name: 'Umleitung Baustelle', stops: ['Hauptbahnhof', 'Marktplatz', 'Alter Weg', 'Stadion', 'Flughafen'] },
-    { id: 3, routeId: 2, name: 'Vollständige Route', stops: ['Hauptbahnhof', 'Zentrum', 'Industriezone Nord', 'Industriezone Süd'] },
-    { id: 4, routeId: 3, name: 'Direktroute', stops: ['Marktplatz', 'Stadtpark', 'Schule', 'Krankenhaus'] }
+    { id: 1, routeId: 1, name: 'Standard Route', stops: [1, 2, 3, 4, 5] },
+    { id: 2, routeId: 1, name: 'Umleitung Baustelle', stops: [1, 2, 6, 4, 5] },
+    { id: 3, routeId: 2, name: 'Vollständige Route', stops: [1, 7, 8, 9] },
+    { id: 4, routeId: 3, name: 'Direktroute', stops: [2, 10, 11, 12] }
   ],
   
-  stops: [
-    { name: 'Hauptbahnhof', time: '0:00' },
-    { name: 'Marktplatz', time: '0:05' },
-    { name: 'Rathaus', time: '0:10' },
-    { name: 'Stadion', time: '0:15' },
-    { name: 'Flughafen', time: '0:25' },
-    { name: 'Alter Weg', time: '0:08' },
-    { name: 'Zentrum', time: '0:05' },
-    { name: 'Industriezone Nord', time: '0:12' },
-    { name: 'Industriezone Süd', time: '0:18' },
-    { name: 'Stadtpark', time: '0:08' },
-    { name: 'Schule', time: '0:15' },
-    { name: 'Krankenhaus', time: '0:20' }
+   stops: [
+    { id: 0.1, name: 'Schwamm Stadt, Hauptbahnhof', time: '0:00' },
+    { id: 0.2, name: 'Schwamm Stadt, Busbahnhof', time: '0:00' },
+    { id: 1, name: 'Schwamm Stadt, Famesstrase', time: '0:00' },
+    { id: 2, name: 'Schwamm Stadt, Bogalastrasse', time: '0:00' },
+    { id: 3, name: 'Schwamm Stadt, Kandis-Weg', time: '0:00' },
+    { id: 4, name: 'Schwamm Stadt, Nord', time: '0:00' },
+    { id: 5, name: 'Schwamm Stadt, Markt-Einkaufszentrum', time: '0:00' },
+    { id: 6, name: 'Schwamm Stadt, Markt-am Restaurant', time: '0:00' },
+    { id: 7, name: 'Schwamm Stadt International Airport', time: '0:00' },
+    { id: 8, name: 'Schwamm Stadt, Nord Ring', time: '0:00' },
+    { id: 9, name: '(SMLZB)Schwamm Land Zentral Bank', time: '0:00' },
+    { id: 10, name: 'Schwamm Stadt, Kino', time: '0:00' },
+    { id: 11.1, name: 'Schwamm Stadt, Orange Park Süd', time: '0:00' },
+    { id: 11.2, name: 'Schwamm Stadt, Orange Park Mitte', time: '0:00' },
+    { id: 11.3, name: 'Schwamm Stadt, Orange Park Nord', time: '0:00' },
+    { id: 12, name: 'Schwamm Stadt, Süd', time: '0:00' },
+    { id: 13, name: 'Schwamm Stadt, Süd Schleifen/Ring', time: '0:00' },
+    { id: 14, name: 'Schwamm Stadt, Deltara-Allee', time: '0:00' }
   ]
 };
 
@@ -50,7 +53,12 @@ function getVariants(routeId) {
 
 function getStops(variantId) {
   const variant = busSystemData.variants.find(v => v.id === variantId);
-  return variant ? variant.stops : [];
+  if (!variant) return [];
+  // Konvertiere Stop-IDs zu Stop-Namen
+  return variant.stops.map(stopId => {
+    const stop = busSystemData.stops.find(s => s.id === stopId);
+    return stop ? stop.name : 'Unbekannt';
+  });
 }
 
 function getDriverById(id) {

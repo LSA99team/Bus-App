@@ -2,6 +2,8 @@
 let currentDriver = null;
 let currentTrip = null;
 let currentStopIndex = 0;
+let customDate = null;
+let customTime = null;
 
 // Modal Management
 function openModal(modalId) {
@@ -14,12 +16,16 @@ function closeModal(modalId) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+  loadSettings();
   setupMenuButtons();
   setupCloseButtons();
   setupDateTime();
   setupDriverLogin();
   setupTripSelection();
   setupTripDisplay();
+  setupSettingsButtons();
+  setupTicketScan();
+  updateDriverStatus();
 });
 
 // Menu Buttons
@@ -47,9 +53,20 @@ function setupCloseButtons() {
 // System Info
 function setupDateTime() {
   function updateDateTime() {
-    const now = new Date();
-    document.getElementById('currentDate').textContent = now.toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    document.getElementById('currentTime').textContent = now.toLocaleTimeString('de-DE');
+    let displayDate, displayTime;
+    
+    if (customDate && customTime) {
+      const [year, month, day] = customDate.split('-');
+      displayDate = new Date(year, month - 1, day).toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      displayTime = customTime;
+    } else {
+      const now = new Date();
+      displayDate = now.toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      displayTime = now.toLocaleTimeString('de-DE');
+    }
+    
+    document.getElementById('currentDate').textContent = displayDate;
+    document.getElementById('currentTime').textContent = displayTime;
   }
   
   updateDateTime();
@@ -74,6 +91,8 @@ function setupDriverLogin() {
       messageEl.textContent = '✓ Anmeldung erfolgreich!';
       messageEl.style.color = '#059669';
       
+      updateDriverStatus();
+      
       setTimeout(() => {
         closeModal('driverModal');
         form.reset();
@@ -83,6 +102,18 @@ function setupDriverLogin() {
       messageEl.style.color = '#dc2626';
     }
   });
+}
+
+// Update driver status display
+function updateDriverStatus() {
+  const statusText = document.getElementById('driverStatusText');
+  if (currentDriver) {
+    statusText.textContent = currentDriver.name;
+    statusText.style.color = '#059669';
+  } else {
+    statusText.textContent = 'Nicht angemeldet';
+    statusText.style.color = '#dc2626';
+  }
 }
 
 // Trip Selection
@@ -144,7 +175,7 @@ function setupTripSelection() {
     currentTrip = {
       route: route,
       variant: variant,
-      stops: variant.stops,
+      stops: getStops(variant.id),
       currentStopIndex: parseInt(stopSelect.value)
     };
     
@@ -204,7 +235,7 @@ function endTrip() {
 }
 
 // Ticket Scan
-document.addEventListener('DOMContentLoaded', () => {
+function setupTicketScan() {
   const scanInput = document.getElementById('scanInput');
   const scanResult = document.getElementById('scanResult');
   
@@ -212,7 +243,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scanInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         const code = scanInput.value;
-        // Simple validation - in reality would check against database
         if (code.length > 5) {
           scanResult.innerHTML = '<div style="color: #059669; padding: 12px; background: #dcfce7; border-radius: 8px;">✓ Ticket gültig</div>';
         } else {
@@ -222,4 +252,37 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+}
+
+// Settings Management
+function setupSettingsButtons() {
+  const saveBtn = document.getElementById('saveSettingsBtn');
+  const dateInput = document.getElementById('dateInput');
+  const timeInput = document.getElementById('timeInput');
+  
+  loadSettings();
+  
+  saveBtn.addEventListener('click', () => {
+    customDate = dateInput.value;
+    customTime = timeInput.value;
+    
+    if (customDate && customTime) {
+      localStorage.setItem('busSystemDate', customDate);
+      localStorage.setItem('busSystemTime', customTime);
+      alert('✓ Datum und Zeit gespeichert!');
+    } else {
+      alert('✗ Bitte Datum und Zeit eingeben!');
+    }
+  });
+}
+
+function loadSettings() {
+  customDate = localStorage.getItem('busSystemDate');
+  customTime = localStorage.getItem('busSystemTime');
+  
+  const dateInput = document.getElementById('dateInput');
+  const timeInput = document.getElementById('timeInput');
+  
+  if (customDate) dateInput.value = customDate;
+  if (customTime) timeInput.value = customTime;
+}

@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="driver-status">
+    <p>Fahrer: <span id="driverStatusText">Nicht angemeldet</span></p>
+  </div>
+  
   <div class="container">
     <h1>🖥️ Bordcomputer</h1>
     
@@ -41,7 +45,16 @@
         <p>Systemzeit: <strong id="currentTime">-</strong></p>
       </div>
       <div class="settings">
-        <h3>Einstellungen</h3>
+        <h3>Datum & Zeit einstellen</h3>
+        <div class="form-group">
+          <label for="dateInput">Datum:</label>
+          <input type="date" id="dateInput" />
+        </div>
+        <div class="form-group">
+          <label for="timeInput">Zeit:</label>
+          <input type="time" id="timeInput" />
+        </div>
+        <button id="saveSettingsBtn" class="settings-btn">Speichern</button>
         <button class="settings-btn">Sprache</button>
         <button class="settings-btn">Display</button>
         <button class="settings-btn">Update</button>
