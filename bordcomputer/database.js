@@ -10,8 +10,8 @@ const busSystemData = {
   ],
   
   variants: [
-    { id: 1, routeId: 1, name: 'Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 7] },
-    { id: 2, routeId: 1, name: 'Rückweg', stops: [7, 0.1, 11.2, 4, 3, 0.2] },
+    { id: 1, routeId: 1, name: 'Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 8] },
+    { id: 2, routeId: 1, name: 'Rückweg', stops: [8, 0.1, 11.2, 4, 3, 0.2] },
   ],
   
    stops: [
