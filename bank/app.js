@@ -57,6 +57,7 @@ if (isAccountPage) {
       document.getElementById('balance').textContent = `€${user.balance.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`;
       document.getElementById('accountNumber').textContent = user.accountNumber;
       document.getElementById('cardNumber').textContent = user.cardNumber;
+      document.getElementById('loan').textContent = `€${user.loan.toLocaleString('de-DE', { minimumFractionDigits: 2 })}`;
       
       // Logout button handler
       document.getElementById('logoutBtn').addEventListener('click', () => {
