@@ -24,15 +24,16 @@ const busSystemData = {
     { id: 5, name: 'Schwamm Stadt, Markt-Einkaufszentrum', time: '0:00' },
     { id: 6, name: 'Schwamm Stadt, Markt-am Restaurant', time: '0:00' },
     { id: 7, name: 'Schwamm Stadt International Airport', time: '0:00' },
-    { id: 8, name: 'Schwamm Stadt, Nord Ring', time: '0:00' },
+    { id: 8, name: 'Schwamm Stadt, Promenade', time: '0:00' },
     { id: 9, name: 'Balonenstrasse - Schwamm Land Zentral Bank', time: '0:00' },
     { id: 10, name: 'Schwamm Stadt, Kino', time: '0:00' },
     { id: 11.1, name: 'Schwamm Stadt, Orange Park - Süd', time: '0:00' },
     { id: 11.2, name: 'Schwamm Stadt, Orange Park - Mitte', time: '0:00' },
-    { id: 11.3, name: 'Schwamm Stadt, Orange Park - Nord', time: '0:00' },
-    { id: 12, name: 'Schwamm Stadt, Süd', time: '0:00' },
-    { id: 13, name: 'Schwamm Stadt, Süd Schleifen-Ring', time: '0:00' },
-    { id: 14, name: 'Schwamm Stadt, Deltara-Allee', time: '0:00' }
+    { id: 11.3, name: 'Schwamm Stadt, Orange Park -Nord', time: '0:00' },
+    { id: 12, name: 'Schwamm Stadt, Nord Ring', time: '0:00' },
+    { id: 13, name: 'Schwamm Stadt, Süd', time: '0:00' },
+    { id: 14, name: 'Schwamm Stadt, Süd Schleifen-Ring', time: '0:00' },
+    { id: 15, name: 'Schwamm Stadt, Deltara-Allee', time: '0:00' }
   ]
 };
 
