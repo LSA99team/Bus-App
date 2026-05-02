@@ -242,27 +242,30 @@ function setupTicketScan() {
   if (scanInput) {
     scanInput.addEventListener('keypress', async (e) => {
       if (e.key === 'Enter') {
-        const stampId = scanInput.value.trim();
+        const ticketId = scanInput.value.trim();
         scanInput.value = '';
         
         try {
-          const response = await fetch(`http://localhost:3000/api/tickets/scan/${stampId}`);
+          // Baue URL mit aktuellen Datum/Zeit-Einstellungen
+          let validateUrl = `http://localhost:3000/api/tickets/validate/${ticketId}`;
+          
+          if (customDate && customTime) {
+            validateUrl += `?date=${customDate}&time=${customTime}`;
+          }
+          
+          const response = await fetch(validateUrl);
           const data = await response.json();
           
-          if (response.ok) {
-            // Ticket gültig und gescannt
+          if (data.status === 'gültig') {
             scanResult.innerHTML = `
-              <div style="color: #059669; padding: 12px; background: #dcfce7; border-radius: 8px;">
-                <strong>✓ Ticket gescannt</strong><br>
-                Art: ${data.art}<br>
-                Preis: €${data.price.toFixed(2)}
+              <div style="color: #059669; padding: 16px; background: #dcfce7; border-radius: 8px; font-size: 20px; font-weight: bold;">
+                ✓ GÜLTIG
               </div>
             `;
           } else {
-            // Fehler
             scanResult.innerHTML = `
-              <div style="color: #dc2626; padding: 12px; background: #fee2e2; border-radius: 8px;">
-                ✗ ${data.error}
+              <div style="color: #dc2626; padding: 16px; background: #fee2e2; border-radius: 8px; font-size: 20px; font-weight: bold;">
+                ✗ UNGÜLTIG
               </div>
             `;
           }

@@ -6,20 +6,34 @@ router.get('/', (req, res) => {
   res.json(tickets);
 });
 
-router.get('/scan/:stampId', (req, res) => {
-  const stampId = req.params.stampId;
-  const ticket = tickets.find(t => t.stampId === stampId);
+router.get('/validate/:ticketId', (req, res) => {
+  const ticketId = req.params.ticketId;
+  const currentDate = req.query.date;
+  const currentTime = req.query.time;
+  
+  const ticket = tickets.find(t => t.id === ticketId);
   
   if (!ticket) {
-    return res.status(404).json({ error: 'Ticket nicht gefunden' });
+    return res.status(404).json({ status: 'ungültig', reason: 'Ticket nicht gefunden' });
   }
   
-  if (ticket.scanned) {
-    return res.status(400).json({ error: 'Ticket wurde bereits gescannt' });
+  // Kombiniere Datum und Zeit zu einem vergleichbaren Format
+  let checkDateTime;
+  if (currentDate && currentTime) {
+    // Format: "2026-04-27" und "19:30:00"
+    checkDateTime = new Date(`${currentDate}T${currentTime}:00Z`);
+  } else {
+    checkDateTime = new Date();
   }
   
-  ticket.scanned = true;
-  res.json(ticket);
+  const validFrom = new Date(ticket.validFrom);
+  const validTo = new Date(ticket.validTo);
+  
+  if (checkDateTime >= validFrom && checkDateTime <= validTo) {
+    res.json({ status: 'gültig' });
+  } else {
+    res.json({ status: 'ungültig', reason: 'Ticket nicht mehr gültig' });
+  }
 });
 
 router.post('/', (req, res) => {

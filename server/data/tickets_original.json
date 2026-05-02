@@ -1,0 +1,11 @@
+[
+  {
+    "id": "0001",
+    "userId": "user-2",
+    "art": "Einzelfahrt",
+    "price": 1.25,
+    "validFrom": "01-05-2026T19:00:00Z",
+    "validTo": "01-05-2026T19:59:59Z"
+  }
+  
+]
