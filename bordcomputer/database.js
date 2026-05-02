@@ -31,7 +31,7 @@ const busSystemData = {
     { id: 11.2, name: 'Schwamm Stadt, Orange Park - Mitte', time: '0:00' },
     { id: 11.3, name: 'Schwamm Stadt, Orange Park - Nord', time: '0:00' },
     { id: 12, name: 'Schwamm Stadt, Süd', time: '0:00' },
-    { id: 13, name: 'Schwamm Stadt, Süd Schleifen/Ring', time: '0:00' },
+    { id: 13, name: 'Schwamm Stadt, Süd Schleifen-Ring', time: '0:00' },
     { id: 14, name: 'Schwamm Stadt, Deltara-Allee', time: '0:00' }
   ]
 };
