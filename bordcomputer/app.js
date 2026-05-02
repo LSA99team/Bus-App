@@ -240,39 +240,60 @@ function setupTicketScan() {
   const scanResult = document.getElementById('scanResult');
   
   if (scanInput) {
-    scanInput.addEventListener('keypress', async (e) => {
+    scanInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
         const ticketId = scanInput.value.trim();
         scanInput.value = '';
         
-        try {
-          // Baue URL mit aktuellen Datum/Zeit-Einstellungen
-          let validateUrl = `http://localhost:3000/api/tickets/validate/${ticketId}`;
-          
-          if (customDate && customTime) {
-            validateUrl += `?date=${customDate}&time=${customTime}`;
-          }
-          
-          const response = await fetch(validateUrl);
-          const data = await response.json();
-          
-          if (data.status === 'gültig') {
-            scanResult.innerHTML = `
-              <div style="color: #059669; padding: 16px; background: #dcfce7; border-radius: 8px; font-size: 20px; font-weight: bold;">
-                ✓ GÜLTIG
-              </div>
-            `;
-          } else {
-            scanResult.innerHTML = `
-              <div style="color: #dc2626; padding: 16px; background: #fee2e2; border-radius: 8px; font-size: 20px; font-weight: bold;">
-                ✗ UNGÜLTIG
-              </div>
-            `;
-          }
-        } catch (error) {
+        // Lade Tickets lokal aus database
+        const tickets = getTickets();
+        const ticket = tickets.find(t => t.id === ticketId);
+        
+        if (!ticket) {
           scanResult.innerHTML = `
-            <div style="color: #dc2626; padding: 12px; background: #fee2e2; border-radius: 8px;">
-              ✗ Verbindungsfehler zum Server
+            <div style="color: #dc2626; padding: 16px; background: #fee2e2; border-radius: 8px; font-size: 20px; font-weight: bold;">
+              ✗ UNGÜLTIG
+            </div>
+          `;
+          return;
+        }
+        
+        // Bestimme die zu prüfende Zeit (von Systemeinstellungen oder aktuell)
+        let checkDateTime;
+        if (customDate && customTime) {
+          // customDate ist im Format YYYY-MM-DD (von HTML input type="date")
+          // customTime ist im Format HH:mm (von HTML input type="time")
+          checkDateTime = new Date(`${customDate}T${customTime}:00Z`);
+        } else {
+          checkDateTime = new Date();
+        }
+        
+        // Parse Ticket-Daten (Format: DD-MM-YYYYTHH:mm:ssZ)
+        const parseTicketDate = (dateStr) => {
+          // Format: "27-04-2026T19:00:00Z" oder "27-04-2026T19:59:59Z"
+          const parts = dateStr.split('T')[0].split('-');
+          const day = parts[0];
+          const month = parts[1];
+          const year = parts[2];
+          const time = dateStr.split('T')[1];
+          
+          // Konvertiere zu ISO-Format
+          return new Date(`${year}-${month}-${day}T${time}`);
+        };
+        
+        const validFrom = parseTicketDate(ticket.validFrom);
+        const validTo = parseTicketDate(ticket.validTo);
+        
+        if (checkDateTime >= validFrom && checkDateTime <= validTo) {
+          scanResult.innerHTML = `
+            <div style="color: #059669; padding: 16px; background: #dcfce7; border-radius: 8px; font-size: 20px; font-weight: bold;">
+              ✓ GÜLTIG
+            </div>
+          `;
+        } else {
+          scanResult.innerHTML = `
+            <div style="color: #dc2626; padding: 16px; background: #fee2e2; border-radius: 8px; font-size: 20px; font-weight: bold;">
+              ✗ UNGÜLTIG
             </div>
           `;
         }

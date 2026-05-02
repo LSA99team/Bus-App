@@ -34,6 +34,36 @@ const busSystemData = {
     { id: 13, name: 'Schwamm Stadt, Süd', time: '0:00' },
     { id: 14, name: 'Schwamm Stadt, Süd Schleifen-Ring', time: '0:00' },
     { id: 15, name: 'Schwamm Stadt, Deltara-Allee', time: '0:00' }
+  ],
+
+  tickets: [
+    {
+      "id": "0001",
+      "userId": "user-2",
+      "tripId": "trip-1",
+      "art": "Einzelfahrt",
+      "price": 1.25,
+      "validFrom": "27-04-2026T19:00:00Z",
+      "validTo": "27-04-2026T19:59:59Z"
+    },
+    {
+      "id": "0002",
+      "userId": "user-2",
+      "tripId": "trip-1",
+      "art": "Tageskarte",
+      "price": 5.55,
+      "validFrom": "27-04-2026T11:35:00Z",
+      "validTo": "28-04-2026T11:34:59Z"
+    },
+    {
+      "id": "0003",
+      "userId": "user-2",
+      "tripId": "trip-1",
+      "art": "Einzelfahrt",
+      "price": 1.25,
+      "validFrom": "27-04-2026T19:16:00Z",
+      "validTo": "27-04-2026T20:15:59Z"
+    }
   ]
 };
 
@@ -66,4 +96,8 @@ function getDriverById(id) {
 
 function getRouteById(id) {
   return busSystemData.routes.find(r => r.id === id);
+}
+
+function getTickets() {
+  return busSystemData.tickets;
 }
