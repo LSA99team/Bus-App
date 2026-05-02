@@ -18,7 +18,7 @@ const busSystemData = {
   
    stops: [
     { id: 0.1, name: 'Schwamm Stadt, Hauptbahnhof', time: '0:00' },
-    { id: 0.2, name: 'Schwamm Stadt, Busbahnhof', time: '0:00' },
+    { id: 0.2, name: 'Schwamm Stadt, Busplatz', time: '0:00' },
     { id: 1, name: 'Schwamm Stadt, Famesstrase', time: '0:00' },
     { id: 2, name: 'Schwamm Stadt, Bogalastrasse', time: '0:00' },
     { id: 3, name: 'Schwamm Stadt, Kandis-Weg', time: '0:00' },
