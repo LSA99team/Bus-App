@@ -6,14 +6,12 @@ const busSystemData = {
   ],
   
   routes: [
-    { id: 1, number: 'T', name: 'Testroute', active: true },
+    { id: 1, number: '1', name: 'Linie 1', active: true },
   ],
   
   variants: [
-    { id: 1, routeId: 1, name: 'Standard Route', stops: [1, 2, 3, 4, 5] },
-    { id: 2, routeId: 1, name: 'Umleitung Baustelle', stops: [1, 2, 6, 4, 5] },
-    { id: 3, routeId: 2, name: 'Vollständige Route', stops: [1, 7, 8, 9] },
-    { id: 4, routeId: 3, name: 'Direktroute', stops: [2, 10, 11, 12] }
+    { id: 1, routeId: 1, name: 'Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 7] },
+    { id: 2, routeId: 1, name: 'Rückweg', stops: [7, 0.1, 11.2, 4, 3, 0.2] },
   ],
   
    stops: [
