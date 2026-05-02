@@ -1,5 +1,6 @@
 const ticketData = {
   'Einzelfahrt': '1.25',
+  'Einzelfahrt (Kind)': '0.75',
   'Tageskarte': '5.55',
   'Wochenkarte': '22.25',
   'Monatskarte': '55.55',
