@@ -25,7 +25,7 @@ const busSystemData = {
     { id: 6, name: 'Schwamm Stadt, Markt-am Restaurant', time: '0:00' },
     { id: 7, name: 'Schwamm Stadt International Airport', time: '0:00' },
     { id: 8, name: 'Schwamm Stadt, Nord Ring', time: '0:00' },
-    { id: 9, name: '(SMLZB)Schwamm Land Zentral Bank', time: '0:00' },
+    { id: 9, name: 'Balonenstrasse - Schwamm Land Zentral Bank', time: '0:00' },
     { id: 10, name: 'Schwamm Stadt, Kino', time: '0:00' },
     { id: 11.1, name: 'Schwamm Stadt, Orange Park Süd', time: '0:00' },
     { id: 11.2, name: 'Schwamm Stadt, Orange Park Mitte', time: '0:00' },
