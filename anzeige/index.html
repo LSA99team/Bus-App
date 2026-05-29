@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anzeigen</title>
+    <link rel="stylesheet" href="main2.css">
+</head>
+<body>
+
+<h1>Anzeigen</h1>
+
+<div class="container">
+    <button class="btn-secondary" onclick="btn1()">🏠 Innen</button>
+    <button class="btn-secondary" onclick="btn2()">🌍 Aussen</button>
+</div>
+
+<a href="../index.html" class="back-btn">← Zurück</a>
+
+<script>
+    function btn1() {
+       window.location.href = "innen.html";
+    }
+
+    function btn2() {
+        window.location.href = "aussen.html";
+    }
+</script>
+
+</body>
+</html>

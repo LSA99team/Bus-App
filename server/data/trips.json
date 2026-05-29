@@ -1,0 +1,16 @@
+[
+  {
+    "id": "trip-1",
+    "route": "A",
+    "departure": "2026-05-01T08:00:00Z",
+    "arrival": "2026-05-01T09:30:00Z",
+    "stops": ["Station 1", "Station 2", "Station 3"]
+  },
+  {
+    "id": "trip-2",
+    "route": "B",
+    "departure": "2026-05-01T10:00:00Z",
+    "arrival": "2026-05-01T11:15:00Z",
+    "stops": ["Station 4", "Station 5", "Station 6"]
+  }
+]
