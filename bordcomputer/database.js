@@ -6,12 +6,17 @@ const busSystemData = {
   ],
   
   routes: [
-    { id: 1, number: '1', name: 'Stadtstrecke', active: true },
+    { id: 01, number: '1', name: 'Stadtstrecke', active: true },
+    { id: 02, number: '2', name: 'Wohnviertelstrecke' active: true },
   ],
   
   variants: [
-    { id: 1, routeId: 1, name: 'Haupt-Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 8] },
-    { id: 2, routeId: 1, name: 'Haupt-Rückweg', stops: [8, 0.1, 11.2, 4, 3, 0.2] },
+    { id: 01, routeId: 01, name: 'Haupt-Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 8] },
+    { id: 02, routeId: 01, name: 'Haupt-Rückweg', stops: [8, 0.1, 11.2, 4, 3, 0.2] },
+    { id: 03, routeId: 02, name: 'Haupt-Hinweg', stops: [11.3, 6, 10, 4, 3, 2, 1] },
+    { id: 04, routeId: 02, name: 'Haupt-Rückweg', stops: [1, 2, 3, 4, 10, 6, 11.3] },
+    { id: 05, routeId: 02, name: 'Alternativ-Hinweg', stops: [11.3, 0.2, 4, 3, 2, 1] },
+    { id: 06, routeId: 02, name: 'Alternativ-Rückweg', stops: [1, 2, 3, 4, 0.2, 11.3] },
   ],
   
    stops: [
@@ -29,7 +34,7 @@ const busSystemData = {
     { id: 10, name: 'Schwamm Stadt, Kino', time: '0:00' },
     { id: 11.1, name: 'Schwamm Stadt, Orange Park - Süd', time: '0:00' },
     { id: 11.2, name: 'Schwamm Stadt, Orange Park - Mitte', time: '0:00' },
-    { id: 11.3, name: 'Schwamm Stadt, Orange Park -Nord', time: '0:00' },
+    { id: 11.3, name: 'Schwamm Stadt, Orange Park - Nord', time: '0:00' },
     { id: 12, name: 'Schwamm Stadt, Nord Ring', time: '0:00' },
     { id: 13, name: 'Schwamm Stadt, Süd', time: '0:00' },
     { id: 14, name: 'Schwamm Stadt, Süd Schleifen-Ring', time: '0:00' },
