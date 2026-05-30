@@ -140,6 +140,106 @@ addRoute(
   ]
 );
 
+addRoute(
+
+  2,
+  "L2",
+  "Wohnviertel",
+
+  {
+    0.2: "Schwamm Stadt, Busplatz",
+    1: "Schwamm Stadt, Famesstrasse",
+    2: "Schwamm Stadt, Bogalastrasse",
+    3: "Schwamm Stadt, Kandis-Weg",
+    4: "Schwamm Stadt, Nord",
+    6: "Schwamm Stadt, Markt-am Restaurant",
+    10: "Schwamm Stadt, Kino",
+    11.3: "Schwamm Stadt, Orange Park - Nord"
+  },
+
+  [
+
+    {
+      name: "Haupt-Hinweg",
+
+      stops: [
+        11.3,
+        6,
+        10,
+        4,
+        3,
+        2,
+        1
+      ],
+
+      // Diese wechseln außen
+      via: [
+        10,
+        3
+      ]
+    },
+    
+    {
+      name: "Haupt-Rückweg",
+
+      stops: [
+        1,
+        2,
+        3,
+        4,
+        10,
+        6,
+        11.3
+      ],
+
+      // Diese wechseln außen
+      via: [
+        3,
+        10
+      ]
+    },
+    
+    {
+      name: "Alternative-Hinweg",
+
+      stops: [
+        11.3,
+        0.2,
+        4,
+        3,
+        2,
+        1
+      ],
+
+      // Diese wechseln außen
+      via: [
+        0.2,
+        3
+      ]
+    },
+    
+    {
+      name: "Alternative-Rückweg",
+
+      stops: [
+        1,
+        2,
+        3,
+        4, 
+        0.2,
+        11.3
+      ],
+
+      // Diese wechseln außen
+      via: [
+        3,
+        0.2
+      ]
+    },
+    
+  ]
+);
+
 
 // ------------------------------------------------------------
 //  HILFSFUNKTIONEN
