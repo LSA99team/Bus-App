@@ -13,8 +13,8 @@ const busSystemData = {
   variants: [
     { id: 1, routeId: 1, name: 'Haupt-Hinweg', stops: [0.2, 3, 4, 11.2, 0.1, 8] },
     { id: 2, routeId: 1, name: 'Haupt-Rückweg', stops: [8, 0.1, 11.2, 4, 3, 0.2] },
-    { id: 3, routeId: 2, name: 'Haupt-Hinweg', stops: [11.3, 6, 10, 4, 3, 2, 1] },
-    { id: 4, routeId: 2, name: 'Haupt-Rückweg', stops: [1, 2, 3, 4, 10, 6, 11.3] },
+    { id: 3, routeId: 2, name: 'Haupt-Hinweg', stops: [11.3, 10, 6, 4, 3, 2, 1] },
+    { id: 4, routeId: 2, name: 'Haupt-Rückweg', stops: [1, 2, 3, 4, 6, 10, 11.3] },
     { id: 5, routeId: 2, name: 'Alternativ-Hinweg', stops: [11.3, 0.2, 4, 3, 2, 1] },
     { id: 6, routeId: 2, name: 'Alternativ-Rückweg', stops: [1, 2, 3, 4, 0.2, 11.3] },
   ],
@@ -48,8 +48,9 @@ const busSystemData = {
       "tripId": "trip-1",
       "art": "Einzelfahrt",
       "price": 1.25,
-      "validFrom": "27-04-2026T19:00:00Z",
-      "validTo": "27-04-2026T19:59:59Z"
+      "validFrom": "31-05-2026T15:00:00Z",
+      "validTo": "31-05-2026T15:29:59Z",
+      "used": false
     },
     {
       "id": "0002",
@@ -58,7 +59,8 @@ const busSystemData = {
       "art": "Tageskarte",
       "price": 5.55,
       "validFrom": "27-04-2026T11:35:00Z",
-      "validTo": "28-04-2026T11:34:59Z"
+      "validTo": "28-04-2026T11:34:59Z",
+      "used": false
     },
     {
       "id": "0003",
@@ -67,7 +69,8 @@ const busSystemData = {
       "art": "Einzelfahrt",
       "price": 1.25,
       "validFrom": "27-04-2026T19:16:00Z",
-      "validTo": "27-04-2026T20:15:59Z"
+      "validTo": "27-04-2026T20:15:59Z",
+      "used": false
     }
   ]
 };
