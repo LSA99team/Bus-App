@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Busanzeige – Innen</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --panel: #111;
+    --amber: #ffb800;
+    --amber-dim: #a07500;
+    --amber-glow: rgba(255,184,0,0.15);
+    --white: #f0f0f0;
+    --gray: #555;
+    --next-bg: #1a1400;
+    --next-border: #ffb800;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Titillium Web', sans-serif;
+    color: var(--white);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── KOPFZEILE: Linie + aktuelle Uhrzeit ── */
+  #header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid var(--amber);
+    background: #000;
+  }
+
+  #linie-badge {
+    background: var(--amber);
+    color: #000;
+    font-weight: 900;
+    font-size: 2rem;
+    padding: 4px 18px;
+    border-radius: 4px;
+    letter-spacing: 2px;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  #ziel-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 1px;
+    flex: 1;
+    padding-left: 20px;
+  }
+
+  #uhrzeit {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--amber);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 2px;
+  }
+
+  /* ── HAUPTBEREICH: 3 Halte ── */
+  #halte-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .halt-zeile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-radius: 6px;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Nächster Halt – hervorgehoben */
+  .halt-zeile.naechster {
+    background: var(--next-bg);
+    border: 2px solid var(--amber);
+    box-shadow: 0 0 20px var(--amber-glow), inset 0 0 20px var(--amber-glow);
+  }
+
+  .halt-zeile.naechster::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--amber);
+    animation: pulse-bar 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-bar {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* 2. Halt */
+  .halt-zeile.zweiter {
+    background: #141414;
+    border: 1px solid #333;
+  }
+
+  /* 3. Halt */
+  .halt-zeile.dritter {
+    background: #0d0d0d;
+    border: 1px solid #222;
+    opacity: 0.75;
+  }
+
+  .halt-nummer {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--amber-dim);
+    min-width: 90px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .naechster .halt-nummer {
+    color: var(--amber);
+  }
+
+  .halt-name {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex: 1;
+  }
+
+  .naechster .halt-name {
+    font-size: 2.2rem;
+    color: var(--amber);
+    font-weight: 900;
+  }
+
+  .zweiter .halt-name {
+    color: var(--white);
+  }
+
+  .dritter .halt-name {
+    color: #aaa;
+  }
+
+  /* Pfeil-Icon nächster Halt */
+  .halt-pfeil {
+    font-size: 1.8rem;
+    color: var(--amber);
+    animation: bounce 1s ease-in-out infinite;
+    display: none;
+  }
+
+  .naechster .halt-pfeil {
+    display: block;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  /* ── FUSSZEILE ── */
+  #footer {
+    padding: 8px 20px;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #000;
+    font-size: 0.8rem;
+    color: var(--gray);
+  }
+
+  #weiter-btn {
+    background: var(--amber);
+    color: #000;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.15s, transform 0.1s;
+  }
+  #weiter-btn:hover  { background: #ffd040; }
+  #weiter-btn:active { transform: scale(0.96); }
+
+  #variante-info {
+    color: var(--gray);
+    font-size: 0.8rem;
+  }
+
+  /* ── KONFIGURATIONS-PANEL (oben rechts) ── */
+  #config-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #222;
+    border: 1px solid #444;
+    color: #888;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    z-index: 100;
+    font-family: inherit;
+  }
+  #config-btn:hover { background: #333; color: #ccc; }
+
+  #config-panel {
+    display: none;
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 16px;
+    z-index: 100;
+    min-width: 260px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  }
+
+  #config-panel.open { display: block; }
+
+  #config-panel h3 {
+    color: var(--amber);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cfg-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .cfg-row label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cfg-row select, .cfg-row input {
+    background: #111;
+    border: 1px solid #444;
+    color: var(--white);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .cfg-apply {
+    background: var(--amber);
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .cfg-apply:hover { background: #ffd040; }
+
+  /* ── ÜBERGANGS-ANIMATION ── */
+  .halt-zeile {
+    animation: einblenden 0.5s ease;
+  }
+
+  @keyframes einblenden {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Konfig-Button -->
+<button id="config-btn" onclick="toggleConfig()">⚙ Einstellungen</button>
+
+<div id="config-panel">
+  <h3>Linie &amp; Route</h3>
+  <div class="cfg-row">
+    <label>Linie</label>
+    <select id="cfg-linie" onchange="updateVariantenAuswahl()"></select>
+  </div>
+  <div class="cfg-row">
+    <label>Variante</label>
+    <select id="cfg-variante"></select>
+  </div>
+  <div class="cfg-row">
+    <label>Startet bei Haltestelle</label>
+    <select id="cfg-starthalt"></select>
+  </div>
+  <h3 style="margin-top:14px;">Uhrzeit</h3>
+  <div class="cfg-row">
+    <label>Manuelle Startzeit (leer = Systemzeit)</label>
+    <input type="time" id="cfg-uhrzeit" step="60">
+  </div>
+  <div class="cfg-row">
+    <label>Geschwindigkeit (1 Minute dauert … Sekunden)</label>
+    <input type="number" id="cfg-minutendauer" value="60" min="1" max="3600">
+  </div>
+  <button class="cfg-apply" onclick="applyConfig()">▶ Anwenden</button>
+</div>
+
+<!-- Kopfzeile -->
+<div id="header">
+  <div id="linie-badge">–</div>
+  <div id="ziel-header">–</div>
+  <div id="uhrzeit">00:00</div>
+</div>
+
+<!-- Haltestellen -->
+<div id="halte-container">
+  <div class="halt-zeile naechster">
+    <div class="halt-nummer">Nächster Halt</div>
+    <div class="halt-name" id="halt1">–</div>
+    <div class="halt-pfeil">▶</div>
+  </div>
+  <div class="halt-zeile zweiter">
+    <div class="halt-nummer">Danach</div>
+    <div class="halt-name" id="halt2">–</div>
+    <div class="halt-pfeil"></div>
+  </div>
+  <div class="halt-zeile dritter">
+    <div class="halt-nummer">Später</div>
+    <div class="halt-name" id="halt3">–</div>
+    <div class="halt-pfeil"></div>
+  </div>
+</div>
+
+<!-- Fußzeile -->
+<div id="footer">
+  <span id="variante-info">–</span>
+  <button id="weiter-btn" onclick="naechsterHalt()">Nächster Halt ▶</button>
+  <span id="halt-fortschritt">–</span>
+</div>
+
+<!-- Routen-Daten laden -->
+<script src="routen.js"></script>
+
+<script>
+// ─────────────────────────────────────────────
+//  INNENANZEIGE – Steuerung
+// ─────────────────────────────────────────────
+
+let aktuelleRoute   = null;
+let aktuelleVariante = null;
+let aktuellerIndex  = 0;
+
+// ── Uhrzeit ──
+// manuelleStartMs: Millisekunden seit Mitternacht beim Start, null = Systemzeit
+// realStartMs: performance.now() beim Setzen der manuellen Zeit
+// minutenFaktor: wie viele echte ms eine simulierte Minute dauert
+let manuelleStartMs = null;
+let realStartMs     = 0;
+let minutenFaktor   = 60000; // Standard: 1 Minute = 60 Sek Echtzeit
+
+function getSimulierteZeit() {
+  if (manuelleStartMs === null) {
+    // Systemzeit
+    return new Date();
+  }
+  // Vergangene echte Zeit seit Start
+  const vergangenEcht = performance.now() - realStartMs;
+  // Skalieren: wie viele simulierte ms sind vergangen?
+  const vergangenSim  = vergangenEcht * (60000 / minutenFaktor);
+  // Startzeit + simulierte Differenz
+  const simuliertMs   = manuelleStartMs + vergangenSim;
+  // Als Date-Objekt (Datum egal, nur Uhrzeit relevant)
+  const d = new Date();
+  const mitternacht = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  return new Date(mitternacht + (simuliertMs % 86400000));
+}
+
+function updateUhrzeit() {
+  const t = getSimulierteZeit();
+  const h = String(t.getHours()).padStart(2, '0');
+  const m = String(t.getMinutes()).padStart(2, '0');
+  document.getElementById('uhrzeit').textContent = h + ':' + m;
+}
+setInterval(updateUhrzeit, 500);
+updateUhrzeit();
+
+// Anzeige rendern
+function renderAnzeige() {
+  if (!aktuelleVariante) return;
+
+  const stops = aktuelleVariante.stopNamen;
+  const total = stops.length;
+
+  // Wenn am Ende → wieder von vorne
+  if (aktuellerIndex >= total) aktuellerIndex = 0;
+
+  const h1 = stops[aktuellerIndex]     || '–';
+  const h2 = stops[aktuellerIndex + 1] || (aktuellerIndex + 1 < total ? stops[aktuellerIndex + 1] : '(Endstation)');
+  const h3 = stops[aktuellerIndex + 2] || '';
+
+  document.getElementById('halt1').textContent = h1;
+  document.getElementById('halt2').textContent = aktuellerIndex + 1 < total ? (stops[aktuellerIndex + 1] || '–') : '(Endstation)';
+  document.getElementById('halt3').textContent = aktuellerIndex + 2 < total ? (stops[aktuellerIndex + 2] || '') : '';
+
+  // Kopf
+  document.getElementById('linie-badge').textContent   = aktuelleRoute.nummer;
+  document.getElementById('ziel-header').textContent   = stops[stops.length - 1];
+
+  // Fußzeile
+  document.getElementById('variante-info').textContent = aktuelleRoute.name + ' – ' + aktuelleVariante.name;
+  document.getElementById('halt-fortschritt').textContent = `Halt ${aktuellerIndex + 1} / ${total}`;
+}
+
+// Weiterschalten
+function naechsterHalt() {
+  aktuellerIndex++;
+  if (aktuellerIndex >= aktuelleVariante.stopNamen.length) {
+    aktuellerIndex = 0;
+  }
+  renderAnzeige();
+}
+
+// ── Konfig-Panel befüllen ──
+function ladeKonfigPanel() {
+  const linienSelect = document.getElementById('cfg-linie');
+  linienSelect.innerHTML = '';
+  getAlleRouten().forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.nummer;
+    opt.textContent = r.nummer + ' – ' + r.name;
+    linienSelect.appendChild(opt);
+  });
+  updateVariantenAuswahl();
+}
+
+function updateVariantenAuswahl() {
+  const nr = parseInt(document.getElementById('cfg-linie').value);
+  const route = getRoute(nr);
+  const varSel = document.getElementById('cfg-variante');
+  const startSel = document.getElementById('cfg-starthalt');
+  varSel.innerHTML = '';
+  startSel.innerHTML = '';
+
+  if (!route) return;
+
+  route.varianten.forEach((v, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = v.name;
+    varSel.appendChild(opt);
+  });
+
+  // Starthalt-Auswahl füllen
+  varSel.addEventListener('change', updateStarthaltAuswahl);
+  updateStarthaltAuswahl();
+}
+
+function updateStarthaltAuswahl() {
+  const nr = parseInt(document.getElementById('cfg-linie').value);
+  const varIdx = parseInt(document.getElementById('cfg-variante').value);
+  const route = getRoute(nr);
+  const startSel = document.getElementById('cfg-starthalt');
+  startSel.innerHTML = '';
+
+  if (!route) return;
+  const variante = route.varianten[varIdx];
+  variante.stopNamen.forEach((name, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = name;
+    startSel.appendChild(opt);
+  });
+}
+
+function applyConfig() {
+  const nr       = parseInt(document.getElementById('cfg-linie').value);
+  const varIdx   = parseInt(document.getElementById('cfg-variante').value);
+  const startIdx = parseInt(document.getElementById('cfg-starthalt').value);
+  const uhrzeitVal     = document.getElementById('cfg-uhrzeit').value;       // "HH:MM" oder ""
+  const minutendauer   = parseInt(document.getElementById('cfg-minutendauer').value) || 60;
+
+  aktuelleRoute    = getRoute(nr);
+  aktuelleVariante = aktuelleRoute.varianten[varIdx];
+  aktuellerIndex   = startIdx;
+
+  // Uhrzeit setzen
+  if (uhrzeitVal) {
+    const [hh, mm] = uhrzeitVal.split(':').map(Number);
+    manuelleStartMs = (hh * 60 + mm) * 60000; // ms seit Mitternacht
+    realStartMs     = performance.now();
+  } else {
+    manuelleStartMs = null; // zurück zur Systemzeit
+  }
+  minutenFaktor = minutendauer * 1000; // Sek → ms
+
+  renderAnzeige();
+  updateUhrzeit();
+  document.getElementById('config-panel').classList.remove('open');
+}
+
+function toggleConfig() {
+  document.getElementById('config-panel').classList.toggle('open');
+}
+
+// ── Beim Laden: erste Route automatisch setzen ──
+window.addEventListener('load', () => {
+  ladeKonfigPanel();
+  const ersteRoute = getAlleRouten()[0];
+  if (ersteRoute) {
+    aktuelleRoute    = ersteRoute;
+    aktuelleVariante = ersteRoute.varianten[0];
+    aktuellerIndex   = 0;
+    renderAnzeige();
+  }
+});
+</script>
+</body>
+</html>
