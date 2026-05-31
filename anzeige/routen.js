@@ -1,38 +1,3 @@
-// ============================================================
-//  ROUTEN-DATEI  –  Busanzeige System
-// ============================================================
-//
-//  WIE EINTRAGEN:
-//  ──────────────
-//
-//  1. Neue Route mit addRoute() anlegen
-//     Parameter:
-//     (nummer, kuerzel, name, stops, varianten)
-//
-//  2. Stops eintragen als Objekt:
-//     stops = {
-//       1: "Bahnhof",
-//       2: "Markt",
-//       3: "Kirche"
-//     }
-//
-//  3. Varianten eintragen:
-//
-//     varianten = [
-//       {
-//         name: "Hauptstrecke",
-//
-//         // Halte der Variante
-//         stops: [1, 2, 3, 4, 5],
-//
-//         // Via-Anzeige außen
-//         // OPTIONAL
-//         via: [2, 4]
-//       }
-//     ]
-//
-// ============================================================
-
 const ROUTEN_DB = {};
 
 function addRoute(
