@@ -209,10 +209,10 @@
     font-size: 0.8rem;
   }
 
-  /* ── KONFIGURATIONS-PANEL (oben rechts) ── */
+  /* ── KONFIGURATIONS-PANEL (unten rechts) ── */
   #config-btn {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     background: #222;
     border: 1px solid #444;
@@ -229,7 +229,7 @@
   #config-panel {
     display: none;
     position: fixed;
-    top: 40px;
+    bottom: 40px;
     right: 10px;
     background: #1a1a1a;
     border: 1px solid #444;
@@ -319,6 +319,15 @@
     <label>Startet bei Haltestelle</label>
     <select id="cfg-starthalt"></select>
   </div>
+  <h3 style="margin-top:14px;">Uhrzeit</h3>
+  <div class="cfg-row">
+    <label>Manuelle Startzeit (leer = Systemzeit)</label>
+    <input type="time" id="cfg-uhrzeit" step="60">
+  </div>
+  <div class="cfg-row">
+    <label>Geschwindigkeit (1 Minute dauert … Sekunden)</label>
+    <input type="number" id="cfg-minutendauer" value="60" min="1" max="3600">
+  </div>
   <button class="cfg-apply" onclick="applyConfig()">▶ Anwenden</button>
 </div>
 
@@ -367,14 +376,38 @@ let aktuelleRoute   = null;
 let aktuelleVariante = null;
 let aktuellerIndex  = 0;
 
-// Uhrzeit
+// ── Uhrzeit ──
+// manuelleStartMs: Millisekunden seit Mitternacht beim Start, null = Systemzeit
+// realStartMs: performance.now() beim Setzen der manuellen Zeit
+// minutenFaktor: wie viele echte ms eine simulierte Minute dauert
+let manuelleStartMs = null;
+let realStartMs     = 0;
+let minutenFaktor   = 60000; // Standard: 1 Minute = 60 Sek Echtzeit
+
+function getSimulierteZeit() {
+  if (manuelleStartMs === null) {
+    // Systemzeit
+    return new Date();
+  }
+  // Vergangene echte Zeit seit Start
+  const vergangenEcht = performance.now() - realStartMs;
+  // Skalieren: wie viele simulierte ms sind vergangen?
+  const vergangenSim  = vergangenEcht * (60000 / minutenFaktor);
+  // Startzeit + simulierte Differenz
+  const simuliertMs   = manuelleStartMs + vergangenSim;
+  // Als Date-Objekt (Datum egal, nur Uhrzeit relevant)
+  const d = new Date();
+  const mitternacht = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  return new Date(mitternacht + (simuliertMs % 86400000));
+}
+
 function updateUhrzeit() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
+  const t = getSimulierteZeit();
+  const h = String(t.getHours()).padStart(2, '0');
+  const m = String(t.getMinutes()).padStart(2, '0');
   document.getElementById('uhrzeit').textContent = h + ':' + m;
 }
-setInterval(updateUhrzeit, 1000);
+setInterval(updateUhrzeit, 500);
 updateUhrzeit();
 
 // Anzeige rendern
@@ -466,15 +499,28 @@ function updateStarthaltAuswahl() {
 }
 
 function applyConfig() {
-  const nr      = parseInt(document.getElementById('cfg-linie').value);
-  const varIdx  = parseInt(document.getElementById('cfg-variante').value);
+  const nr       = parseInt(document.getElementById('cfg-linie').value);
+  const varIdx   = parseInt(document.getElementById('cfg-variante').value);
   const startIdx = parseInt(document.getElementById('cfg-starthalt').value);
+  const uhrzeitVal     = document.getElementById('cfg-uhrzeit').value;       // "HH:MM" oder ""
+  const minutendauer   = parseInt(document.getElementById('cfg-minutendauer').value) || 60;
 
   aktuelleRoute    = getRoute(nr);
   aktuelleVariante = aktuelleRoute.varianten[varIdx];
   aktuellerIndex   = startIdx;
 
+  // Uhrzeit setzen
+  if (uhrzeitVal) {
+    const [hh, mm] = uhrzeitVal.split(':').map(Number);
+    manuelleStartMs = (hh * 60 + mm) * 60000; // ms seit Mitternacht
+    realStartMs     = performance.now();
+  } else {
+    manuelleStartMs = null; // zurück zur Systemzeit
+  }
+  minutenFaktor = minutendauer * 1000; // Sek → ms
+
   renderAnzeige();
+  updateUhrzeit();
   document.getElementById('config-panel').classList.remove('open');
 }
 
